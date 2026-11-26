@@ -10,5 +10,6 @@ venv/
 # Nested reference repo & large media/logs
 carla_example/
 docs/*.pdf
+recordings/
 *.mp4
 *.log
