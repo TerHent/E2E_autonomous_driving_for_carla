@@ -308,8 +308,10 @@ class ScenarioRunner:
             settings = self.world.get_settings()
             settings.synchronous_mode = False
             self.world.apply_settings(settings)
-            for actor in self.world.get_actors().filter("vehicle.*"):
-                actor.destroy()
+            leftovers = [a for a in self.world.get_actors().filter("vehicle.*") if a.is_alive]
+            if leftovers:
+                self.client.apply_batch([self.carla.command.DestroyActor(a) for a in leftovers])
+                time.sleep(0.1)
 
             settings = self.world.get_settings()
             settings.synchronous_mode = True
@@ -329,7 +331,7 @@ class ScenarioRunner:
             if record_video:
                 cam_bp = self.bp_lib.find("sensor.camera.rgb")
                 cam_bp.set_attribute("image_size_x", "960")
-                cam_bp.set_attribute("image_size_y", "540")
+                cam_bp.set_attribute("image_size_y", "544")
                 cam_bp.set_attribute("fov", "90")
                 cam_tf = self.carla.Transform(
                     self.carla.Location(x=-8.5, z=3.5),
@@ -360,11 +362,22 @@ class ScenarioRunner:
             if self.camera is not None:
                 time.sleep(0.1)
                 self.camera.stop()
-                self.camera.destroy()
+                if self.camera.is_alive:
+                    self.camera.destroy()
                 self.camera = None
             for actor in self.spawned:
                 if actor.is_alive:
-                    actor.destroy()
+                    try:
+                        actor.set_autopilot(False, self.tm_port)
+                    except RuntimeError:
+                        pass
+            alive = [a for a in self.spawned if a.is_alive]
+            if alive:
+                self.client.apply_batch([self.carla.command.DestroyActor(a) for a in alive])
+                try:
+                    self.world.tick()
+                except RuntimeError:
+                    pass
             self.spawned.clear()
             if tm is not None:
                 tm.set_synchronous_mode(False)
