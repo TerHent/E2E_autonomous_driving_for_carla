@@ -1,0 +1,54 @@
+{
+  "scene": {
+    "scenario_id": "emergency_pedestrian_crossing",
+    "description": "Pedestrian steps into crosswalk 14m ahead while ego is moving at 10 m/s.",
+    "timestamp_s": 58.1,
+    "ego": {
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0,
+      "speed_mps": 10.0,
+      "lane_id": -1,
+      "speed_limit_mps": 11.1
+    },
+    "traffic_light": {
+      "state": "green",
+      "distance_m": 20.0
+    },
+    "route_window": {
+      "target_lane_id": -1,
+      "recommended_speed_mps": 10.0,
+      "allowed_lane_changes": [],
+      "upcoming_events": [
+        {
+          "kind": "crosswalk",
+          "distance_m": 14.0,
+          "description": "Unsignalized pedestrian crosswalk."
+        }
+      ]
+    },
+    "actors": [
+      {
+        "id": "ped_crossing",
+        "kind": "pedestrian",
+        "x_m": 14.0,
+        "y_m": 0.8,
+        "speed_mps": 1.4,
+        "yaw_deg": -90.0,
+        "lane_offset": 0
+      }
+    ]
+  },
+  "expectation": {
+    "allowed_actions": [
+      "decelerate"
+    ],
+    "forbidden_actions": [
+      "accelerate",
+      "idle",
+      "lane_change_left",
+      "lane_change_right"
+    ],
+    "rationale": "Immediate collision risk with pedestrian (TTC ~1.4s) demands braking."
+  }
+}

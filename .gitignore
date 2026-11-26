@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Nested reference repo & large media/logs
+carla_example/
+docs/*.pdf
+*.mp4
+*.log

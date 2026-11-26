@@ -1,0 +1,53 @@
+{
+  "scene": {
+    "scenario_id": "upcoming_right_turn_merge",
+    "description": "Route requires turning right in 75m; ego is in left lane with clear right gap.",
+    "timestamp_s": 45.6,
+    "ego": {
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0,
+      "speed_mps": 10.5,
+      "lane_id": -1,
+      "speed_limit_mps": 13.9
+    },
+    "traffic_light": {
+      "state": "green",
+      "distance_m": 72.0
+    },
+    "route_window": {
+      "target_lane_id": -2,
+      "recommended_speed_mps": 10.0,
+      "allowed_lane_changes": [
+        "right"
+      ],
+      "upcoming_events": [
+        {
+          "kind": "turn_right",
+          "distance_m": 75.0,
+          "description": "Right turn onto Oak Ave; move to rightmost lane (-2)."
+        }
+      ]
+    },
+    "actors": [
+      {
+        "id": "veh_right_behind",
+        "kind": "vehicle",
+        "x_m": -30.0,
+        "y_m": -3.5,
+        "speed_mps": 10.0,
+        "yaw_deg": 0.0,
+        "lane_offset": 1
+      }
+    ]
+  },
+  "expectation": {
+    "allowed_actions": [
+      "lane_change_right"
+    ],
+    "forbidden_actions": [
+      "lane_change_left"
+    ],
+    "rationale": "Route window targets lane -2 for upcoming right turn and gap is open."
+  }
+}

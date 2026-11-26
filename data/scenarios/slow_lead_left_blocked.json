@@ -1,0 +1,58 @@
+{
+  "scene": {
+    "scenario_id": "slow_lead_left_blocked",
+    "description": "Slow car ahead, but fast vehicle is closing in the left lane.",
+    "timestamp_s": 31.2,
+    "ego": {
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0,
+      "speed_mps": 12.5,
+      "lane_id": -2,
+      "speed_limit_mps": 13.9
+    },
+    "traffic_light": {
+      "state": "none",
+      "distance_m": null
+    },
+    "route_window": {
+      "target_lane_id": -2,
+      "recommended_speed_mps": 13.0,
+      "allowed_lane_changes": [
+        "left"
+      ],
+      "upcoming_events": []
+    },
+    "actors": [
+      {
+        "id": "veh_slow",
+        "kind": "vehicle",
+        "x_m": 20.0,
+        "y_m": 0.0,
+        "speed_mps": 6.0,
+        "yaw_deg": 0.0,
+        "lane_offset": 0
+      },
+      {
+        "id": "veh_left_fast",
+        "kind": "vehicle",
+        "x_m": -8.0,
+        "y_m": 3.5,
+        "speed_mps": 18.5,
+        "yaw_deg": 0.0,
+        "lane_offset": -1
+      }
+    ]
+  },
+  "expectation": {
+    "allowed_actions": [
+      "decelerate",
+      "idle"
+    ],
+    "forbidden_actions": [
+      "lane_change_left",
+      "accelerate"
+    ],
+    "rationale": "Fast approaching vehicle in left lane makes lane change unsafe."
+  }
+}

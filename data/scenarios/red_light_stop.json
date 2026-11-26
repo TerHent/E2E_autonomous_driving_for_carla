@@ -1,0 +1,54 @@
+{
+  "scene": {
+    "scenario_id": "red_light_stop",
+    "description": "Approaching a red traffic light with a slowing lead vehicle.",
+    "timestamp_s": 12.4,
+    "ego": {
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_deg": 0.0,
+      "speed_mps": 11.0,
+      "lane_id": -1,
+      "speed_limit_mps": 13.9
+    },
+    "traffic_light": {
+      "state": "red",
+      "distance_m": 32.0
+    },
+    "route_window": {
+      "target_lane_id": -1,
+      "recommended_speed_mps": 11.0,
+      "allowed_lane_changes": [],
+      "upcoming_events": [
+        {
+          "kind": "junction",
+          "distance_m": 35.0,
+          "description": "Signalized 4-way intersection ahead."
+        }
+      ]
+    },
+    "actors": [
+      {
+        "id": "veh_lead",
+        "kind": "vehicle",
+        "x_m": 18.0,
+        "y_m": 0.0,
+        "speed_mps": 3.5,
+        "yaw_deg": 0.0,
+        "lane_offset": 0
+      }
+    ]
+  },
+  "expectation": {
+    "allowed_actions": [
+      "decelerate",
+      "idle"
+    ],
+    "forbidden_actions": [
+      "accelerate",
+      "lane_change_left",
+      "lane_change_right"
+    ],
+    "rationale": "Red light at 32m and slowing lead vehicle require braking."
+  }
+}
